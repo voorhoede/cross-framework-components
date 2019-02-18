@@ -15,6 +15,7 @@ class SocialShareNative extends HTMLElement {
 
         listItems.forEach((item, index) => {
             item.style.transform = `translateY(${(index + 1) * 3.25}em)`
+            item.style.transitionDelay = `${index * 0.15}s`
             item.style.zIndex = `-${index + 1}`
         })
 

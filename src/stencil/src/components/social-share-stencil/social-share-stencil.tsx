@@ -28,6 +28,7 @@ export class SocialShareStencil {
             {this.platforms.map((platform, index) =>
               <li class="list-item" style={{
                 transform: `translateY(${(index + 1) * 3.25}em)`,
+                transitionDelay: `${index * 0.15}s`,
                 zIndex: `-${index + 1}`
               }}>
                 <button data-platform={platform} onClick={() => {this.shareTo.emit(platform); this.show = false;}}>
