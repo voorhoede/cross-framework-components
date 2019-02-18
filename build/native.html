@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Social Share Native</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="module" src="native/social-share-native.js"></script>
+    <script type="module" src="svelte/bundle.js"></script>
+    <script type="module" src="stencil/www/build/app.js"></script>
+    <style>
+        .components {
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+<body>
+    <h1>Native browser as a consumer</h1>
+    
+    <button onclick="toggle()">Toggle</button>
+    
+    <div class="components">
+        <social-share-native></social-share-native>
+        <social-share-svelte></social-share-svelte>
+        <social-share-stencil></social-share-stencil>
+    </div>
+
+    <script>
+        document.body.addEventListener('share-to', function (event) {
+            console.log(`From ${event.target.localName} share to: ${event.detail}`)
+        })
+
+        function toggle() {
+            Array.from(document.querySelectorAll('.components > *')).forEach(element => {
+                element.show = !element.show
+            })
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Social Share Vue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .components {
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Vue as a consumer</h1>
+
+        <button @click="toggle">Toggle</button>
+        
+        <div class="components">
+            <social-share-native :show="open" @share-to="onEvent('Native', $event)"></social-share-native>
+            <social-share-svelte :show="open" @share-to="onEvent('Svelte', $event)"></social-share-svelte>
+            <social-share-stencil :show="open" @share-to="onEvent('Stencil', $event)"></social-share-stencil>
+        </div>
+    </div>
+
+    <script>
+        Vue.config.ignoredElements = [/social-share*/];
+
+        new Vue({
+            el: '#app',
+            data: () => ({
+                open: false
+            }),
+            methods: {
+                toggle() {
+                    this.open = !this.open
+                },
+                onEvent(platform, event) {
+                    console.log(`From ${platform} share to ${event.detail}`)
+                }
+            }
+        })
+    </script>
+    <script type="module" src="native/social-share-native.js"></script>
+    <script type="module" src="svelte/bundle.js"></script>
+    <script type="module" src="stencil/www/build/app.js"></script>
+</body>
+</html>
