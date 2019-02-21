@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Social Share Native</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script type="module" src="native/social-share-native.js"></script>
     <script type="module" src="svelte/bundle.js"></script>
+    <script type="module" src="vue/social-share-vue.js"></script>
     <script type="module" src="stencil/www/build/socialshare.js"></script>
     <style>
         .components {
@@ -24,11 +26,14 @@
         <social-share-native></social-share-native>
         <social-share-svelte></social-share-svelte>
         <social-share-stencil></social-share-stencil>
+        <social-share-vue></social-share-vue>
     </div>
 
     <script>
-        document.body.addEventListener('share-to', function (event) {
-            console.log(`From ${event.target.localName} share to: ${event.detail}`)
+        document.querySelectorAll('.components > *').forEach(el => {
+            el.addEventListener('share-to', function (event) {
+                console.log(`From ${event.target.localName} share to: ${event.detail}`)
+            })
         })
 
         function toggle() {

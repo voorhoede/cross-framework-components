@@ -1,0 +1,118 @@
+<template>
+    <div class="wrapper" :class="{'wrapper--show': showed}" ref="wrapper">
+        <strong class="platform">Vue</strong>
+        <button class="toggle" @click="showed = !showed"><img src="/images/share.svg" alt="share"/></button>
+        <ul class="list">
+            <li class="list-item">
+                <button data-platform="facebook" @click="choosePlatform('facebook')"><img src="/images/facebook.svg" alt="facebook"/></button>
+            </li>
+            <li class="list-item">
+                <button data-platform="twitter" @click="choosePlatform('twitter')"><img src="/images/twitter.svg" alt="twitter"/></button>
+            </li>
+            <li class="list-item">
+                <button data-platform="linkedin" @click="choosePlatform('linkedin')"><img src="/images/linkedin.svg" alt="linkedin"/></button>
+            </li>
+            <li class="list-item">
+                <button data-platform="whatsapp" @click="choosePlatform('whatsapp')"><img src="/images/whatsapp.svg" alt="whatsapp"/></button>
+            </li>
+        </ul>
+    </div>
+</template>
+
+<style>
+    .wrapper {
+        position: relative;
+    }
+    .platform {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -100%);
+    }
+    img {
+        width: 50%;
+        height: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    button {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background-color: teal;
+        border: none;
+        position: relative;
+        cursor: pointer;
+        outline: none;
+    }
+    button:hover {
+        background-color: blue;
+    }
+    button > * {
+        pointer-events: none;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        top: 0;
+    }
+    li {
+        position: absolute;
+        top: 0;
+    }
+
+    .list-item {
+        opacity: 1;
+        transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+    }
+
+    .wrapper:not(.wrapper--show) .list-item {
+        transform: translate(0) !important;
+        opacity: 0;
+    }
+
+    .toggle {
+        z-index: 1;
+    }
+    .wrapper--show .toggle {
+        background-color: blue;
+    }
+</style>
+
+
+<script>
+export default {
+    props: {
+        show: {
+            type: Boolean,
+        }
+    },
+    data: () => ({
+        showed: false
+    }),
+    mounted() {
+        const listItems = Array.from(this.$refs.wrapper.querySelectorAll('.list-item'))
+        listItems.forEach((item, index) => {
+            item.style.transform = `translateY(${(index + 1) * 3.25}em)`
+            item.style.transitionDelay = `${index * 0.15}s`
+            item.style.zIndex = `-${index + 1}`
+        })
+
+        this.showed = this.show
+    },
+    methods: {
+        choosePlatform(platform) {
+            this.$emit('share-to', platform)
+            this.showed = false
+        }
+    },
+    watch: {
+        show(value) {
+            this.showed = value
+        }
+    }
+}
+</script>

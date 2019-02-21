@@ -26,7 +26,14 @@
     "build:svelte": "rollup --config ./src/svelte/rollup.config.js",
     "prebuild:stencil": "rimraf build/stencil",
     "build:stencil": "stencil build --docs && mkdirp build/stencil && mv www build/stencil",
+    "build:vue": "vue-cli-service build --target wc --name social-share-vue --dest ./build/vue ./src/vue/social-share-vue.vue",
     "prestart": "npm run build",
     "start": "serve build"
+  },
+  "dependencies": {
+    "@vue/cli-service": "3.4.1",
+    "@vue/web-component-wrapper": "1.2.0",
+    "vue": "2.6.6",
+    "vue-template-compiler": "2.6.6"
   }
 }
