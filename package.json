@@ -19,10 +19,12 @@
     "svelte": "^2.8.1"
   },
   "scripts": {
-    "prebuild": "rimraf build/native/* build/stencil build/svelte",
     "build": "run-s build:*",
+    "prebuild:native": "rimraf build/native/*",
     "build:native": "mkdirp build/native && cp -r src/native/* build/native",
+    "prebuild:svelte": "rimraf build/svelte",
     "build:svelte": "rollup --config ./src/svelte/rollup.config.js",
+    "prebuild:stencil": "rimraf build/stencil",
     "build:stencil": "stencil build --docs && mkdirp build/stencil && mv www build/stencil",
     "prestart": "npm run build",
     "start": "serve build"

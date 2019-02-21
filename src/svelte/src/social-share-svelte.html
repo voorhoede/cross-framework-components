@@ -92,7 +92,6 @@
 	export default {
 		tag: 'social-share-svelte',
 		props: ['show'],
-		data: () => ({ show: false }),
 		oncreate() {
 			const listItems = Array.from(this.refs.wrapper.querySelectorAll('.list-item'))
 			listItems.forEach((item, index) => {
